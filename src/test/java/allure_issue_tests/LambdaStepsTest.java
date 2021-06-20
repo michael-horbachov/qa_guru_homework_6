@@ -24,9 +24,7 @@ public class LambdaStepsTest {
         });
         step("Search the " + REPOSITORY + " repository", (s) -> {
             s.parameter("repository", REPOSITORY);
-            $(".header-search-input").click();
-            $(".header-search-input").sendKeys(REPOSITORY);
-            $(".header-search-input").submit();
+            $(".header-search-input").setValue(REPOSITORY).submit();
         });
         step("Navigate into the " + REPOSITORY + " repository", (s) -> {
             s.parameter("repository", REPOSITORY);

@@ -22,9 +22,7 @@ public class SelenideTest {
         SelenideLogger.addListener("allure", new AllureSelenide());
 
         open(BASE_URL);
-        $(".header-search-input").click();
-        $(".header-search-input").sendKeys(REPOSITORY);
-        $(".header-search-input").submit();
+        $(".header-search-input").setValue(REPOSITORY).submit();
         $(By.linkText("eroshenkoam/allure-example")).click();
         $(withText("Issues")).click();
 
