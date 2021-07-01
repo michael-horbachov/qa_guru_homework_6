@@ -1,4 +1,4 @@
-package allure_issue_tests.steps;
+package tests.allure_issue_tests.steps;
 
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
@@ -27,7 +27,7 @@ public class WebSteps {
 
     @Step("Open the Issues tab in repository")
     public void openIssueTab() {
-        $(withText("Issues")).click();
+        $(withText("Issues"), 1).click();
     }
 
     @Step("Verify issue name for issue #{issueNumber} is {issueName}")

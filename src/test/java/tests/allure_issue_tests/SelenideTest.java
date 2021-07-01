@@ -1,8 +1,10 @@
-package allure_issue_tests;
+package tests.allure_issue_tests;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
@@ -10,14 +12,11 @@ import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class SelenideTest {
+public class SelenideTest extends TestBase {
 
-    private static final String BASE_URL = "https://github.com";
-    private static final String REPOSITORY = "eroshenkoam/allure-example";
-    private static final int ISSUE_NUMBER = 68;
-    private static final String ISSUE_NAME = "Listeners NamedBy";
-
+    @Disabled("Do not run until fix")
     @Test
+    @Tag("webUI")
     public void allureIssueNameVerification() {
         SelenideLogger.addListener("allure", new AllureSelenide());
 

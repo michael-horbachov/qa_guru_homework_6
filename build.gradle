@@ -7,29 +7,54 @@ repositories {
     mavenCentral()
 }
 
+def selenideVersion = "5.22.1",
+    junitVersion = "5.7.2",
+    allureVersion = "2.14.0"
+
 dependencies {
     testImplementation(
-            "com.codeborne:selenide:5.22.0",
-            "org.junit.jupiter:junit-jupiter-api:5.7.2",
-            "io.qameta.allure:allure-selenide:2.14.0"
+            "com.codeborne:selenide:$selenideVersion",
+            "org.junit.jupiter:junit-jupiter-api:$junitVersion",
+            "io.qameta.allure:allure-selenide:$allureVersion",
+            "org.aeonbits.owner:owner:1.0.12"
     )
     testRuntimeOnly(
-            "org.junit.jupiter:junit-jupiter-engine:5.7.2",
+            "org.junit.jupiter:junit-jupiter-engine:$junitVersion",
             "org.slf4j:slf4j-simple:1.7.30"
     )
 }
 
 allure {
-    version = '2.14.0'
+    version = allureVersion
     aspectjweaver = true
     autoconfigure = true
     aspectjVersion = '1.9.4'
-
+    configuration = "testImplementation"
     useJUnit5 {
-        version = '2.14.0'
+        version = allureVersion
     }
 }
 
-test {
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+tasks.withType(Test) {
+    systemProperties(System.getProperties())
     useJUnitPlatform()
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
+
+task allure_issue_tests(type: Test) {
+    useJUnitPlatform {
+        includeTags "webUI"
+    }
 }
